@@ -45,49 +45,28 @@
       min-height: 100vh;
     }
     .topbar {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 16px;
-      right: 16px;
+      left: 0;
+      right: 0;
       z-index: 20;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       padding: 8px 10px 8px 14px;
-      background: color-mix(in srgb, var(--card) 86%, transparent);
+      background: var(--card);
       border-bottom: 1px solid var(--line);
-      border: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
-      border-radius: 12px;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      border-radius: 0;
       backdrop-filter: blur(14px);
-      box-shadow: 0 12px 32px rgba(0,0,0,.10);
-      opacity: .18;
-      transform: translateY(calc(-100% + 16px));
-      transition: opacity .16s ease, transform .16s ease;
+      box-shadow: 0 8px 26px rgba(0,0,0,.08);
+      opacity: 1;
     }
     .topbar::after {
-      content: "工具";
-      position: absolute;
-      left: 50%;
-      bottom: -18px;
-      transform: translateX(-50%);
-      height: 18px;
-      padding: 0 14px;
-      display: grid;
-      place-items: center;
-      border-radius: 0 0 9px 9px;
-      background: color-mix(in srgb, var(--card) 90%, transparent);
-      border: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
-      border-top: 0;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      text-shadow: none;
-    }
-    .topbar:hover,
-    .topbar:focus-within {
-      opacity: 1;
-      transform: translateY(0);
+      content: none;
     }
     .brand {
       display: flex;
@@ -137,7 +116,6 @@
     }
     .title-input::placeholder { color: var(--muted); }
     .title-input:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 2px rgba(251,114,153,0.15); }
-    .blur-mode .cover { filter: blur(7px); transition: filter 0.3s; }
     /* highlight mode: pink glow on user's cover */
     .highlight-mode .cover.mine {
       outline: 3px solid var(--pink);
@@ -229,14 +207,20 @@
       padding: 0 0 24px 72px;
       background:
         linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.06) 45%, rgba(255,255,255,.88)),
-        url("https://i0.hdslb.com/bfs/archive/cc634ec77d2755641d5ed3f392c9b7e065a88aae.png@3840w_360h_1c.webp?mirror_report_banner=1") center / cover no-repeat,
+        radial-gradient(ellipse at 72% 18%, rgba(255,255,255,.65) 0 7%, transparent 8%),
+        radial-gradient(ellipse at 34% 100%, rgba(80,138,87,.42) 0 24%, transparent 25%),
+        linear-gradient(168deg, transparent 0 58%, rgba(232,185,96,.65) 59% 66%, transparent 67%),
+        linear-gradient(12deg, rgba(74,139,70,.40) 0 23%, transparent 24%),
         linear-gradient(120deg, #b7dba7, #d7ebf3 45%, #f3d08d);
       border-bottom: 1px solid var(--line);
     }
     body.dark .banner {
       background:
         linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.10) 45%, rgba(24,26,31,.92)),
-        url("https://i0.hdslb.com/bfs/archive/cc634ec77d2755641d5ed3f392c9b7e065a88aae.png@3840w_360h_1c.webp?mirror_report_banner=1") center / cover no-repeat,
+        radial-gradient(ellipse at 72% 18%, rgba(255,255,255,.16) 0 7%, transparent 8%),
+        radial-gradient(ellipse at 34% 100%, rgba(60,98,64,.58) 0 24%, transparent 25%),
+        linear-gradient(168deg, transparent 0 58%, rgba(126,96,45,.45) 59% 66%, transparent 67%),
+        linear-gradient(12deg, rgba(47,86,50,.45) 0 23%, transparent 24%),
         linear-gradient(120deg, #38513f, #273c49 45%, #4a3921);
     }
     .screenshot-safe .banner {
@@ -359,7 +343,7 @@
       place-items: center;
       border-radius: 6px;
       background: var(--soft);
-      color: color-mix(in srgb, var(--text) 78%, var(--muted));
+      color: var(--text);
       font-size: 13px;
     }
     .links {
@@ -391,6 +375,89 @@
       border-radius: 6px;
       background: #1f2329;
       position: relative;
+    }
+    .hero-carousel {
+      height: var(--bili-feature-height);
+    }
+    .hero-slide {
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      transform: none !important;
+    }
+    .feature-hero .cover::after {
+      height: 54%;
+      background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,.40) 46%, rgba(0,0,0,.12) 72%, transparent);
+    }
+    .hero-content {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: end;
+      color: #fff;
+      pointer-events: none;
+    }
+    .hero-title {
+      min-width: 0;
+      font-size: 21px;
+      line-height: 1.3;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0,0,0,.55);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .hero-dots {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 0;
+      padding: 0;
+      background: rgba(255,255,255,.46);
+      pointer-events: auto;
+      cursor: pointer;
+      transition: width .18s ease, background .18s ease;
+    }
+    .hero-dot.active {
+      width: 16px;
+      background: #fff;
+    }
+    .hero-controls {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .hero-arrow {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: rgba(255,255,255,.16);
+      font-size: 27px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background .16s ease, transform .16s ease;
+    }
+    .hero-arrow:hover {
+      background: rgba(255,255,255,.24);
+      transform: translateY(-1px);
     }
     .feature-side {
       grid-column: span 3;
@@ -428,11 +495,14 @@
     .web-card:hover .cover,
     .mobile-card:hover .cover { transform: translateY(-1px); }
     .selected .cover {
-      outline: 4px solid color-mix(in srgb, var(--pink) 70%, transparent);
+      outline: 4px solid rgba(251, 114, 153, .7);
       outline-offset: 0;
     }
     .web-cover { aspect-ratio: 16 / 9; }
-    .feature-hero .web-cover { aspect-ratio: 16 / 9; }
+    .feature-hero .web-cover {
+      height: 100%;
+      aspect-ratio: auto;
+    }
     .cover::after {
       content: "";
       position: absolute;
@@ -538,21 +608,6 @@
     .feature-hero .web-meta {
       display: none;
     }
-    .feature-hero::after {
-      content: "";
-      display: block;
-      width: 88px;
-      height: 8px;
-      position: absolute;
-      left: 16px;
-      bottom: 14px;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle, rgba(255,255,255,.95) 0 3px, transparent 3.5px) 0 0 / 14px 8px repeat-x;
-      opacity: .9;
-      position: relative;
-      z-index: 2;
-    }
     .mobile-cover::after {
       height: 32px;
     }
@@ -638,7 +693,7 @@
       justify-content: space-around;
       border-bottom: 1px solid var(--line);
       background: var(--card);
-      color: color-mix(in srgb, var(--text) 72%, var(--muted));
+      color: var(--text);
       font-size: 17px;
     }
     .tabs span {
@@ -717,7 +772,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       align-items: center;
-      background: color-mix(in srgb, var(--card) 96%, transparent);
+      background: var(--card);
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 12px;
@@ -768,6 +823,60 @@
     .toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 180;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
+    }
+    .modal-backdrop.show { display: grid; }
+    .sponsor-modal {
+      width: min(360px, calc(100vw - 48px));
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 28px 80px rgba(0,0,0,.28);
+      padding: 18px;
+      text-align: center;
+    }
+    .sponsor-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .sponsor-head strong {
+      font-size: 16px;
+    }
+    .sponsor-head span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    .close-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .sponsor-qr {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      background: #fff;
     }
 
     @media (max-width: 1380px) {
@@ -821,7 +930,7 @@
     <header class="topbar">
       <div class="brand">
         <strong>B站封面预览</strong>
-        <span id="hint">已内置 54 张其他博主封面，导入你的封面即可开始比较。</span>
+        <span id="hint">已内置 52 张其他博主封面，导入你的封面即可开始比较。</span>
       </div>
       <div class="actions">
         <button class="btn primary" id="uploadBtn" type="button">导入我的封面</button>
@@ -833,8 +942,8 @@
         </div>
         <button class="btn" id="themeBtn" type="button">深色模式</button>
         <button class="btn" id="titleBtn" type="button">自定义标题</button>
-        <button class="btn" id="blurBtn" type="button">模糊测试</button>
         <button class="btn" id="markBtn" type="button">我的封面标记</button>
+        <button class="btn" id="sponsorBtn" type="button">赞助作者</button>
       </div>
       <div class="title-bar" id="titleBar" hidden>
         <label class="title-label" for="titleInput">你的封面标题</label>
@@ -889,61 +998,73 @@
   </main>
 
   <div class="toast" id="toast"></div>
+  <div class="modal-backdrop" id="sponsorModal" aria-hidden="true">
+    <div class="sponsor-modal" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
+      <div class="sponsor-head">
+        <div>
+          <strong id="sponsorTitle">赞助作者</strong>
+          <span>感谢支持这个小工具继续变好</span>
+        </div>
+        <button class="close-btn" id="sponsorClose" type="button" aria-label="关闭">×</button>
+      </div>
+      <img class="sponsor-qr" src="assets/sponsor-qr.jpeg" alt="赞助二维码" />
+    </div>
+  </div>
 
   <script>
     const competitorCovers = [
-      { cover: '其他博主封面/100个AI电影感提示词｜首尾帧风格运镜.jpg', title: '100个AI电影感提示词 | 首尾帧风格运镜', owner: '参考UP1', viewText: '328.5万', danmakuText: '2678', durationText: '22:41', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/1分钟学会6种旅行博主常用运镜！.jpg', title: '1分钟学会6种旅行博主常用运镜！', owner: '参考UP2', viewText: '3.2万', danmakuText: '824', durationText: '14:17', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/2026最全PR模板合集！一键套用新手也能做大片！.jpg', title: '2026最全PR模板合集！一键套用新手也能做大片！', owner: '参考UP3', viewText: '2454', danmakuText: '31', durationText: '06:31', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/Pocket4P把普通生活拍成了电影！.jpg', title: 'Pocket4P把普通生活拍成了电影！', owner: '参考UP4', viewText: '310.4万', danmakuText: '3700', durationText: '02:07', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/Vlog神器？超广角拍视频太好玩了｜星曜AF 12mm F2.8北京实拍分享.jpg', title: 'Vlog神器？超广角拍视频太好玩了 | 星曜AF 12mm F2.8北京实拍分享', owner: '参考UP5', viewText: '2476', danmakuText: '4', durationText: '13:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/“心墙再奏美加墨”——内马尔世界杯进球+助攻集锦.jpg', title: '“心墙再奏美加墨”——内马尔世界杯进球+助攻集锦', owner: '参考UP6', viewText: '185.1万', danmakuText: '2193', durationText: '12:29', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/☀️ 水手妹，四选一！ ☀️.jpg', title: '水手妹，四选一！', owner: '参考UP7', viewText: '2518', danmakuText: '0', durationText: '00:45', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/⚡功 夫 足 球 2.0⚡.jpg', title: '功 夫 足 球 2.0', owner: '参考UP8', viewText: '264.2万', danmakuText: '41', durationText: '03:00', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/《别惹那个胖子》无聊的我看了一个无聊的广告，然后想起一个无聊的剧情，用了无聊的几个小时，做了一个无聊的短片，无聊的你可以看看这个无聊的片子.jpg', title: '别惹那个胖子', owner: '参考UP9', viewText: '1.8万', danmakuText: '442', durationText: '11:11', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【4K】足球史上最精彩的一条龙之一，无数梅西球迷的入坑之作！（梅西个人触球集锦）.jpg', title: '足球史上最精彩的一条龙之一', owner: '参考UP1', viewText: '27.4万', danmakuText: '2', durationText: '02:19', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【8K实拍】独家视角！神舟二十三号发射成功！！！.jpg', title: '独家视角！神舟二十三号发射成功', owner: '参考UP2', viewText: '1188', danmakuText: '2678', durationText: '08:38', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【Messi Magic纯享版】爆肝剪辑！3小时梅西905球全收录！.jpg', title: '3小时梅西905球全收录', owner: '参考UP3', viewText: '37.1万', danmakuText: '824', durationText: '07:41', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【哈基米】快逃！风雷翅！.jpg', title: '快逃！风雷翅！', owner: '参考UP4', viewText: '444.1万', danmakuText: '31', durationText: '01:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【喵喵折】2026年618台式电脑配置推荐-桌面版.jpg', title: '2026年618台式电脑配置推荐', owner: '参考UP5', viewText: '1388', danmakuText: '3700', durationText: '14:34', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【御成萌新君】佳能R63保姆级教程02：提升拍摄效率的进阶设定.jpg', title: '佳能R63保姆级教程02', owner: '参考UP6', viewText: '1871', danmakuText: '4', durationText: '22:41', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【微缩世界】耗资85元，我做了一瓶康师傅冰镇红茶！.jpg', title: '耗资85元，我做了一瓶康师傅冰镇红茶！', owner: '参考UP7', viewText: '328.5万', danmakuText: '2193', durationText: '14:17', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【极清 无水印 素材向】B-2轰炸机超长集锦.jpg', title: 'B-2轰炸机超长集锦', owner: '参考UP8', viewText: '3.2万', danmakuText: '0', durationText: '06:31', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【画质逼近现实】鸦片战争战场，做成游戏地图！.jpg', title: '鸦片战争战场，做成游戏地图！', owner: '参考UP9', viewText: '2454', danmakuText: '41', durationText: '02:07', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/【纯爱战神】真有这么完美的人生吗.jpg', title: '真有这么完美的人生吗', owner: '参考UP1', viewText: '310.4万', danmakuText: '442', durationText: '13:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/一球改写万千人生！世界杯10大改命 绝杀时刻！.jpg', title: '世界杯10大改命绝杀时刻', owner: '参考UP2', viewText: '2476', danmakuText: '2', durationText: '12:29', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/世界杯来了，为什么今年完全没感觉？.jpg', title: '世界杯来了，为什么今年完全没感觉？', owner: '参考UP3', viewText: '185.1万', danmakuText: '2678', durationText: '00:45', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/中芯国际晶圆制造宣传片｜半导体芯片三维动画视频制作公司-上海共济岛作品.jpg', title: '中芯国际晶圆制造宣传片', owner: '参考UP4', viewText: '2518', danmakuText: '824', durationText: '03:00', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/为什么你拍不出前后都清晰的照片？因为你还不懂对焦包围！.jpg', title: '为什么你拍不出前后都清晰的照片？', owner: '参考UP5', viewText: '264.2万', danmakuText: '31', durationText: '11:11', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/什么样的决赛，能让人永生难忘？2022年阿根廷vs法国世界杯决赛，千古名局!.jpg', title: '2022阿根廷vs法国世界杯决赛', owner: '参考UP6', viewText: '1.8万', danmakuText: '3700', durationText: '02:19', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/全中国最让人晕碳的地方，空气里有蒙汗药吧？.jpg', title: '全中国最让人晕碳的地方', owner: '参考UP7', viewText: '27.4万', danmakuText: '4', durationText: '08:38', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/创作崩溃的第3天，我停止了思考….jpg', title: '创作崩溃的第3天，我停止了思考', owner: '参考UP9', viewText: '37.1万', danmakuText: '0', durationText: '01:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/包容还是包戎？2026美加墨将是最癫世界杯？.jpg', title: '2026美加墨将是最癫世界杯？', owner: '参考UP1', viewText: '444.1万', danmakuText: '41', durationText: '14:34', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/古法剪辑的复兴之路不好走哇！.jpg', title: '古法剪辑的复兴之路不好走哇！', owner: '参考UP2', viewText: '1388', danmakuText: '442', durationText: '22:41', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/只需掌握白平衡偏移设置，就能直出人像大片！.jpg', title: '白平衡偏移设置，直出人像大片', owner: '参考UP3', viewText: '1871', danmakuText: '2', durationText: '14:17', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/在30亿人面前装逼，是什么感觉？世界杯十大凌空抽射！.jpg', title: '世界杯十大凌空抽射', owner: '参考UP4', viewText: '328.5万', danmakuText: '2678', durationText: '06:31', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/大疆Pocket 4P拍人像直接封神！.jpg', title: '大疆Pocket 4P拍人像直接封神！', owner: '参考UP5', viewText: '3.2万', danmakuText: '824', durationText: '02:07', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/如何利用AI来剪辑你的vlog？自动剪辑skill分享。.jpg', title: '如何利用AI来剪辑你的vlog？', owner: '参考UP6', viewText: '2454', danmakuText: '31', durationText: '13:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/如果可以 希望事情不要发展到那一步 我不想当护航 不想活成最讨厌的模样 更不想让她担心.jpg', title: '如果可以，希望事情不要发展到那一步', owner: '参考UP7', viewText: '310.4万', danmakuText: '3700', durationText: '12:29', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/宇树发布  GD01 载人变形机甲 390万元起.jpg', title: '宇树发布GD01载人变形机甲', owner: '参考UP8', viewText: '2476', danmakuText: '4', durationText: '00:45', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/富士相机怎么选？我的常用镜头&机身分享📸.jpg', title: '富士相机怎么选？', owner: '参考UP9', viewText: '185.1万', danmakuText: '2193', durationText: '03:00', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/富游上海！预算无上限在上海玩一天要花多少钱？.jpg', title: '预算无上限在上海玩一天要花多少钱？', owner: '参考UP1', viewText: '2518', danmakuText: '0', durationText: '11:11', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/建筑生长效果_拼贴动画教程.jpg', title: '建筑生长效果拼贴动画教程', owner: '参考UP2', viewText: '264.2万', danmakuText: '41', durationText: '02:19', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/当我把生活变成了开放世界 RPG…….jpg', title: '当我把生活变成了开放世界 RPG', owner: '参考UP3', viewText: '1.8万', danmakuText: '442', durationText: '08:38', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/当朋友和我说深圳没啥好玩的，我说…….jpg', title: '当朋友和我说深圳没啥好玩的', owner: '参考UP4', viewText: '27.4万', danmakuText: '2', durationText: '07:41', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/无AI纯手搓！同人自制《剑来》真人版！每一帧都是诚意！.jpg', title: '无AI纯手搓剑来真人版', owner: '参考UP5', viewText: '1188', danmakuText: '2678', durationText: '01:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/最终EVA.jpg', title: '最终EVA', owner: '参考UP6', viewText: '37.1万', danmakuText: '824', durationText: '14:34', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/止战之殇 史诗电影版（雷德王降临地球）.jpg', title: '止战之殇 史诗电影版', owner: '参考UP7', viewText: '444.1万', danmakuText: '31', durationText: '22:41', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/特朗普访华专属座驾 他的车都有哪些秘密功能？【野兽一号】.jpg', title: '野兽一号有哪些秘密功能？', owner: '参考UP8', viewText: '1388', danmakuText: '3700', durationText: '14:17', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/用三维地图怎么去做旅游攻略？学会了你也能做出爆款视频！.jpg', title: '用三维地图做旅游攻略', owner: '参考UP9', viewText: '1871', danmakuText: '4', durationText: '06:31', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/美加墨世界杯，哪些记录会被破？.jpg', title: '美加墨世界杯，哪些记录会被破？', owner: '参考UP2', viewText: '3.2万', danmakuText: '0', durationText: '13:25', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/自媒体创业影视灯怎么选？.jpg', title: '自媒体创业影视灯怎么选？', owner: '参考UP3', viewText: '2454', danmakuText: '41', durationText: '12:29', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/详解足球场上11人的角色与职责.jpg', title: '详解足球场上11人的角色与职责', owner: '参考UP4', viewText: '310.4万', danmakuText: '442', durationText: '00:45', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/运动相机三大拍摄技巧·用大疆Action6拍出爆款旅拍vlog！运镜技巧｜调色教程｜创意转场.jpg', title: '运动相机三大拍摄技巧', owner: '参考UP5', viewText: '2476', danmakuText: '2', durationText: '03:00', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/这年头，送子观音来了，都不好使！.jpg', title: '这年头，送子观音来了都不好使', owner: '参考UP6', viewText: '185.1万', danmakuText: '2678', durationText: '11:11', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/陈小姐评《给阿嬷的情书》：可以讲几句真话吗？.jpg', title: '可以讲几句真话吗？', owner: '参考UP7', viewText: '2518', danmakuText: '824', durationText: '02:19', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/音效：118个剪辑师必备数码相机快门、对焦、变焦、闪光灯、连拍、倒计时、开机、关机摄像机电影广告短片剪辑音效素材.jpg', title: '118个剪辑师必备相机音效素材', owner: '参考UP8', viewText: '264.2万', danmakuText: '31', durationText: '08:38', sourceName: "其他博主封面" },
-      { cover: '其他博主封面/高铁运行地图路线模拟动画，用AE的GEOlayers做出来的.jpg', title: '高铁运行地图路线模拟动画', owner: '参考UP9', viewText: '1.8万', danmakuText: '3700', durationText: '07:41', sourceName: "其他博主封面" }
+      { cover: 'covers/100个AI电影感提示词｜首尾帧风格运镜.jpg', title: '100个AI电影感提示词 | 首尾帧风格运镜', owner: '参考UP1', viewText: '328.5万', danmakuText: '2678', durationText: '22:41', sourceName: "其他博主封面" },
+      { cover: 'covers/1分钟学会6种旅行博主常用运镜！.jpg', title: '1分钟学会6种旅行博主常用运镜！', owner: '参考UP2', viewText: '3.2万', danmakuText: '824', durationText: '14:17', sourceName: "其他博主封面" },
+      { cover: 'covers/2026最全PR模板合集！一键套用新手也能做大片！.jpg', title: '2026最全PR模板合集！一键套用新手也能做大片！', owner: '参考UP3', viewText: '2454', danmakuText: '31', durationText: '06:31', sourceName: "其他博主封面" },
+      { cover: 'covers/Pocket4P把普通生活拍成了电影！.jpg', title: 'Pocket4P把普通生活拍成了电影！', owner: '参考UP4', viewText: '310.4万', danmakuText: '3700', durationText: '02:07', sourceName: "其他博主封面" },
+      { cover: 'covers/Vlog神器？超广角拍视频太好玩了｜星曜AF 12mm F2.8北京实拍分享.jpg', title: 'Vlog神器？超广角拍视频太好玩了 | 星曜AF 12mm F2.8北京实拍分享', owner: '参考UP5', viewText: '2476', danmakuText: '4', durationText: '13:25', sourceName: "其他博主封面" },
+      { cover: 'covers/“心墙再奏美加墨”——内马尔世界杯进球+助攻集锦.jpg', title: '“心墙再奏美加墨”——内马尔世界杯进球+助攻集锦', owner: '参考UP6', viewText: '185.1万', danmakuText: '2193', durationText: '12:29', sourceName: "其他博主封面" },
+      { cover: 'covers/☀️ 水手妹，四选一！ ☀️.jpg', title: '水手妹，四选一！', owner: '参考UP7', viewText: '2518', danmakuText: '0', durationText: '00:45', sourceName: "其他博主封面" },
+      { cover: 'covers/⚡功 夫 足 球 2.0⚡.jpg', title: '功 夫 足 球 2.0', owner: '参考UP8', viewText: '264.2万', danmakuText: '41', durationText: '03:00', sourceName: "其他博主封面" },
+      { cover: 'covers/《别惹那个胖子》无聊的我看了一个无聊的广告，然后想起一个无聊的剧情，用了无聊的几个小时，做了一个无聊的短片，无聊的你可以看看这个无聊的片子.jpg', title: '别惹那个胖子', owner: '参考UP9', viewText: '1.8万', danmakuText: '442', durationText: '11:11', sourceName: "其他博主封面" },
+      { cover: 'covers/【4K】足球史上最精彩的一条龙之一，无数梅西球迷的入坑之作！（梅西个人触球集锦）.jpg', title: '足球史上最精彩的一条龙之一', owner: '参考UP1', viewText: '27.4万', danmakuText: '2', durationText: '02:19', sourceName: "其他博主封面" },
+      { cover: 'covers/【8K实拍】独家视角！神舟二十三号发射成功！！！.jpg', title: '独家视角！神舟二十三号发射成功', owner: '参考UP2', viewText: '1188', danmakuText: '2678', durationText: '08:38', sourceName: "其他博主封面" },
+      { cover: 'covers/【Messi Magic纯享版】爆肝剪辑！3小时梅西905球全收录！.jpg', title: '3小时梅西905球全收录', owner: '参考UP3', viewText: '37.1万', danmakuText: '824', durationText: '07:41', sourceName: "其他博主封面" },
+      { cover: 'covers/【哈基米】快逃！风雷翅！.jpg', title: '快逃！风雷翅！', owner: '参考UP4', viewText: '444.1万', danmakuText: '31', durationText: '01:25', sourceName: "其他博主封面" },
+      { cover: 'covers/【喵喵折】2026年618台式电脑配置推荐-桌面版.jpg', title: '2026年618台式电脑配置推荐', owner: '参考UP5', viewText: '1388', danmakuText: '3700', durationText: '14:34', sourceName: "其他博主封面" },
+      { cover: 'covers/【御成萌新君】佳能R63保姆级教程02：提升拍摄效率的进阶设定.jpg', title: '佳能R63保姆级教程02', owner: '参考UP6', viewText: '1871', danmakuText: '4', durationText: '22:41', sourceName: "其他博主封面" },
+      { cover: 'covers/【微缩世界】耗资85元，我做了一瓶康师傅冰镇红茶！.jpg', title: '耗资85元，我做了一瓶康师傅冰镇红茶！', owner: '参考UP7', viewText: '328.5万', danmakuText: '2193', durationText: '14:17', sourceName: "其他博主封面" },
+      { cover: 'covers/【极清 无水印 素材向】B-2轰炸机超长集锦.jpg', title: 'B-2轰炸机超长集锦', owner: '参考UP8', viewText: '3.2万', danmakuText: '0', durationText: '06:31', sourceName: "其他博主封面" },
+      { cover: 'covers/【画质逼近现实】鸦片战争战场，做成游戏地图！.jpg', title: '鸦片战争战场，做成游戏地图！', owner: '参考UP9', viewText: '2454', danmakuText: '41', durationText: '02:07', sourceName: "其他博主封面" },
+      { cover: 'covers/【纯爱战神】真有这么完美的人生吗.jpg', title: '真有这么完美的人生吗', owner: '参考UP1', viewText: '310.4万', danmakuText: '442', durationText: '13:25', sourceName: "其他博主封面" },
+      { cover: 'covers/一球改写万千人生！世界杯10大改命 绝杀时刻！.jpg', title: '世界杯10大改命绝杀时刻', owner: '参考UP2', viewText: '2476', danmakuText: '2', durationText: '12:29', sourceName: "其他博主封面" },
+      { cover: 'covers/世界杯来了，为什么今年完全没感觉？.jpg', title: '世界杯来了，为什么今年完全没感觉？', owner: '参考UP3', viewText: '185.1万', danmakuText: '2678', durationText: '00:45', sourceName: "其他博主封面" },
+      { cover: 'covers/中芯国际晶圆制造宣传片｜半导体芯片三维动画视频制作公司-上海共济岛作品.jpg', title: '中芯国际晶圆制造宣传片', owner: '参考UP4', viewText: '2518', danmakuText: '824', durationText: '03:00', sourceName: "其他博主封面" },
+      { cover: 'covers/为什么你拍不出前后都清晰的照片？因为你还不懂对焦包围！.jpg', title: '为什么你拍不出前后都清晰的照片？', owner: '参考UP5', viewText: '264.2万', danmakuText: '31', durationText: '11:11', sourceName: "其他博主封面" },
+      { cover: 'covers/什么样的决赛，能让人永生难忘？2022年阿根廷vs法国世界杯决赛，千古名局!.jpg', title: '2022阿根廷vs法国世界杯决赛', owner: '参考UP6', viewText: '1.8万', danmakuText: '3700', durationText: '02:19', sourceName: "其他博主封面" },
+      { cover: 'covers/全中国最让人晕碳的地方，空气里有蒙汗药吧？.jpg', title: '全中国最让人晕碳的地方', owner: '参考UP7', viewText: '27.4万', danmakuText: '4', durationText: '08:38', sourceName: "其他博主封面" },
+      { cover: 'covers/创作崩溃的第3天，我停止了思考….jpg', title: '创作崩溃的第3天，我停止了思考', owner: '参考UP9', viewText: '37.1万', danmakuText: '0', durationText: '01:25', sourceName: "其他博主封面" },
+      { cover: 'covers/包容还是包戎？2026美加墨将是最癫世界杯？.jpg', title: '2026美加墨将是最癫世界杯？', owner: '参考UP1', viewText: '444.1万', danmakuText: '41', durationText: '14:34', sourceName: "其他博主封面" },
+      { cover: 'covers/古法剪辑的复兴之路不好走哇！.jpg', title: '古法剪辑的复兴之路不好走哇！', owner: '参考UP2', viewText: '1388', danmakuText: '442', durationText: '22:41', sourceName: "其他博主封面" },
+      { cover: 'covers/只需掌握白平衡偏移设置，就能直出人像大片！.jpg', title: '白平衡偏移设置，直出人像大片', owner: '参考UP3', viewText: '1871', danmakuText: '2', durationText: '14:17', sourceName: "其他博主封面" },
+      { cover: 'covers/在30亿人面前装逼，是什么感觉？世界杯十大凌空抽射！.jpg', title: '世界杯十大凌空抽射', owner: '参考UP4', viewText: '328.5万', danmakuText: '2678', durationText: '06:31', sourceName: "其他博主封面" },
+      { cover: 'covers/大疆Pocket 4P拍人像直接封神！.jpg', title: '大疆Pocket 4P拍人像直接封神！', owner: '参考UP5', viewText: '3.2万', danmakuText: '824', durationText: '02:07', sourceName: "其他博主封面" },
+      { cover: 'covers/如何利用AI来剪辑你的vlog？自动剪辑skill分享。.jpg', title: '如何利用AI来剪辑你的vlog？', owner: '参考UP6', viewText: '2454', danmakuText: '31', durationText: '13:25', sourceName: "其他博主封面" },
+      { cover: 'covers/如果可以 希望事情不要发展到那一步 我不想当护航 不想活成最讨厌的模样 更不想让她担心.jpg', title: '如果可以，希望事情不要发展到那一步', owner: '参考UP7', viewText: '310.4万', danmakuText: '3700', durationText: '12:29', sourceName: "其他博主封面" },
+      { cover: 'covers/宇树发布  GD01 载人变形机甲 390万元起.jpg', title: '宇树发布GD01载人变形机甲', owner: '参考UP8', viewText: '2476', danmakuText: '4', durationText: '00:45', sourceName: "其他博主封面" },
+      { cover: 'covers/富士相机怎么选？我的常用镜头&机身分享📸.jpg', title: '富士相机怎么选？', owner: '参考UP9', viewText: '185.1万', danmakuText: '2193', durationText: '03:00', sourceName: "其他博主封面" },
+      { cover: 'covers/富游上海！预算无上限在上海玩一天要花多少钱？.jpg', title: '预算无上限在上海玩一天要花多少钱？', owner: '参考UP1', viewText: '2518', danmakuText: '0', durationText: '11:11', sourceName: "其他博主封面" },
+      { cover: 'covers/建筑生长效果_拼贴动画教程.jpg', title: '建筑生长效果拼贴动画教程', owner: '参考UP2', viewText: '264.2万', danmakuText: '41', durationText: '02:19', sourceName: "其他博主封面" },
+      { cover: 'covers/当我把生活变成了开放世界 RPG…….jpg', title: '当我把生活变成了开放世界 RPG', owner: '参考UP3', viewText: '1.8万', danmakuText: '442', durationText: '08:38', sourceName: "其他博主封面" },
+      { cover: 'covers/当朋友和我说深圳没啥好玩的，我说…….jpg', title: '当朋友和我说深圳没啥好玩的', owner: '参考UP4', viewText: '27.4万', danmakuText: '2', durationText: '07:41', sourceName: "其他博主封面" },
+      { cover: 'covers/无AI纯手搓！同人自制《剑来》真人版！每一帧都是诚意！.jpg', title: '无AI纯手搓剑来真人版', owner: '参考UP5', viewText: '1188', danmakuText: '2678', durationText: '01:25', sourceName: "其他博主封面" },
+      { cover: 'covers/最终EVA.jpg', title: '最终EVA', owner: '参考UP6', viewText: '37.1万', danmakuText: '824', durationText: '14:34', sourceName: "其他博主封面" },
+      { cover: 'covers/止战之殇 史诗电影版（雷德王降临地球）.jpg', title: '止战之殇 史诗电影版', owner: '参考UP7', viewText: '444.1万', danmakuText: '31', durationText: '22:41', sourceName: "其他博主封面" },
+      { cover: 'covers/特朗普访华专属座驾 他的车都有哪些秘密功能？【野兽一号】.jpg', title: '野兽一号有哪些秘密功能？', owner: '参考UP8', viewText: '1388', danmakuText: '3700', durationText: '14:17', sourceName: "其他博主封面" },
+      { cover: 'covers/用三维地图怎么去做旅游攻略？学会了你也能做出爆款视频！.jpg', title: '用三维地图做旅游攻略', owner: '参考UP9', viewText: '1871', danmakuText: '4', durationText: '06:31', sourceName: "其他博主封面" },
+      { cover: 'covers/美加墨世界杯，哪些记录会被破？.jpg', title: '美加墨世界杯，哪些记录会被破？', owner: '参考UP2', viewText: '3.2万', danmakuText: '0', durationText: '13:25', sourceName: "其他博主封面" },
+      { cover: 'covers/自媒体创业影视灯怎么选？.jpg', title: '自媒体创业影视灯怎么选？', owner: '参考UP3', viewText: '2454', danmakuText: '41', durationText: '12:29', sourceName: "其他博主封面" },
+      { cover: 'covers/详解足球场上11人的角色与职责.jpg', title: '详解足球场上11人的角色与职责', owner: '参考UP4', viewText: '310.4万', danmakuText: '442', durationText: '00:45', sourceName: "其他博主封面" },
+      { cover: 'covers/运动相机三大拍摄技巧·用大疆Action6拍出爆款旅拍vlog！运镜技巧｜调色教程｜创意转场.jpg', title: '运动相机三大拍摄技巧', owner: '参考UP5', viewText: '2476', danmakuText: '2', durationText: '03:00', sourceName: "其他博主封面" },
+      { cover: 'covers/这年头，送子观音来了，都不好使！.jpg', title: '这年头，送子观音来了都不好使', owner: '参考UP6', viewText: '185.1万', danmakuText: '2678', durationText: '11:11', sourceName: "其他博主封面" },
+      { cover: 'covers/陈小姐评《给阿嬷的情书》：可以讲几句真话吗？.jpg', title: '可以讲几句真话吗？', owner: '参考UP7', viewText: '2518', danmakuText: '824', durationText: '02:19', sourceName: "其他博主封面" },
+      { cover: 'covers/音效：118个剪辑师必备数码相机快门、对焦、变焦、闪光灯、连拍、倒计时、开机、关机摄像机电影广告短片剪辑音效素材.jpg', title: '118个剪辑师必备相机音效素材', owner: '参考UP8', viewText: '264.2万', danmakuText: '31', durationText: '08:38', sourceName: "其他博主封面" },
+      { cover: 'covers/高铁运行地图路线模拟动画，用AE的GEOlayers做出来的.jpg', title: '高铁运行地图路线模拟动画', owner: '参考UP9', viewText: '1.8万', danmakuText: '3700', durationText: '07:41', sourceName: "其他博主封面" }
     ];
 
     const app = document.getElementById("app");
@@ -958,8 +1079,10 @@
     const titleBtn = document.getElementById("titleBtn");
     const titleBar = document.getElementById("titleBar");
     const titleInput = document.getElementById("titleInput");
-    const blurBtn = document.getElementById("blurBtn");
     const markBtn = document.getElementById("markBtn");
+    const sponsorBtn = document.getElementById("sponsorBtn");
+    const sponsorModal = document.getElementById("sponsorModal");
+    const sponsorClose = document.getElementById("sponsorClose");
     const heroGrid = document.getElementById("heroGrid");
     const sideGrid = document.getElementById("sideGrid");
     const webGrid = document.getElementById("webGrid");
@@ -973,6 +1096,9 @@
     let filePickerLastOpen = 0;
     let coverObserver = null;
     let html2CanvasPromise = null;
+    const HERO_SLIDE_COUNT = 9;
+    let heroActiveIndex = 0;
+    let heroTimer = null;
 
     function shuffle(list) {
       const copy = list.slice();
@@ -984,8 +1110,9 @@
     }
 
     function resetItems() {
-      items = shuffle(competitorCovers).slice(0, 18).map(item => ({ ...item, mine: false }));
+      items = shuffle(competitorCovers).slice(0, 22).map(item => ({ ...item, mine: false }));
       if (userCover) items[selectedSlot] = { ...items[selectedSlot], ...userCover, mine: true };
+      heroActiveIndex = 0;
     }
 
     function showToast(message) {
@@ -1021,6 +1148,23 @@
       if (!cover || cover.dataset.loaded || !cover.dataset.cover) return;
       cover.style.backgroundImage = cssUrl(cover.dataset.cover);
       cover.dataset.loaded = "true";
+    }
+
+    function fileFromDrop(event) {
+      const files = Array.from(event.dataTransfer?.files || []);
+      return files.find(file => file.type.startsWith("image/"));
+    }
+
+    function handleDroppedCover(event, slot = selectedSlot) {
+      event.preventDefault();
+      event.stopPropagation();
+      document.body.classList.remove("dragging");
+      const file = fileFromDrop(event);
+      if (!file) {
+        showToast("请拖入图片文件");
+        return;
+      }
+      useFile(file, slot);
     }
 
     function prepareLazyCovers() {
@@ -1062,13 +1206,34 @@
       if (!html2CanvasPromise) {
         html2CanvasPromise = new Promise((resolve, reject) => {
           const script = document.createElement("script");
-          script.src = "./html2canvas.min.js";
+          script.src = "./assets/vendor/html2canvas.min.js";
           script.onload = () => resolve(window.html2canvas);
           script.onerror = () => reject(new Error("html2canvas unavailable"));
           document.head.appendChild(script);
         });
       }
       return html2CanvasPromise;
+    }
+
+    function waitForImage(src) {
+      if (!src || src.startsWith("data:")) return Promise.resolve();
+      return new Promise(resolve => {
+        const image = new Image();
+        const done = () => resolve();
+        const timer = setTimeout(done, 3200);
+        image.onload = image.onerror = () => {
+          clearTimeout(timer);
+          done();
+        };
+        image.src = src;
+      });
+    }
+
+    async function prepareScreenshotTarget(target) {
+      const covers = Array.from(target.querySelectorAll(".cover[data-cover]"));
+      covers.forEach(loadCoverElement);
+      await Promise.all(covers.map(cover => waitForImage(cover.dataset.cover)));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     }
 
     function meta(item) {
@@ -1101,18 +1266,85 @@
       showToast(`已选中第 ${selectedSlot + 1} 个位置，导入后会替换这里`);
     }
 
+    function displayTitle(item) {
+      return item.mine && userCover.title ? userCover.title : item.title;
+    }
+
+    function getHeroSlides() {
+      const slides = items.slice(0, Math.min(HERO_SLIDE_COUNT, items.length));
+      if (heroActiveIndex >= slides.length) heroActiveIndex = 0;
+      return slides;
+    }
+
+    function setHeroSlide(index, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const slides = getHeroSlides();
+      if (!slides.length) return;
+      heroActiveIndex = (index + slides.length) % slides.length;
+      render();
+    }
+
+    function scheduleHeroTimer() {
+      clearInterval(heroTimer);
+      const slides = getHeroSlides();
+      if (slides.length < 2) return;
+      heroTimer = setInterval(() => {
+        if (!app.classList.contains("mode-desktop")) return;
+        heroActiveIndex = (heroActiveIndex + 1) % slides.length;
+        render();
+      }, 5000);
+    }
+
+    function makeHeroCarousel() {
+      const slides = getHeroSlides();
+      const item = slides[heroActiveIndex] || items[0];
+      const card = document.createElement("article");
+      card.className = `feature-hero hero-carousel${selectedSlot === 0 || item?.mine ? " selected" : ""}`;
+      card.innerHTML = `
+        <div class="cover web-cover hero-slide${item?.mine ? ' mine' : ''}" data-cover="${esc(item?.cover || '')}"></div>
+        <div class="hero-content">
+          <div class="hero-copy">
+            <div class="hero-title">${esc(displayTitle(item || {}))}</div>
+            <div class="hero-dots" aria-label="轮播位置">
+              ${slides.map((_, index) => `<button class="hero-dot${index === heroActiveIndex ? ' active' : ''}" data-hero-dot="${index}" type="button" aria-label="第 ${index + 1} 张"></button>`).join("")}
+            </div>
+          </div>
+          <div class="hero-controls" aria-label="手动切换">
+            <button class="hero-arrow" data-hero-dir="-1" type="button" aria-label="上一张">‹</button>
+            <button class="hero-arrow" data-hero-dir="1" type="button" aria-label="下一张">›</button>
+          </div>
+        </div>
+      `;
+      card.addEventListener("click", () => selectSlot(0));
+      card.addEventListener("dblclick", openCoverPicker);
+      card.addEventListener("dragover", event => event.preventDefault());
+      card.addEventListener("drop", event => handleDroppedCover(event, 0));
+      card.querySelectorAll("[data-hero-dot]").forEach(button => {
+        button.addEventListener("click", event => setHeroSlide(Number(button.dataset.heroDot), event));
+      });
+      card.querySelectorAll("[data-hero-dir]").forEach(button => {
+        button.addEventListener("click", event => setHeroSlide(heroActiveIndex + Number(button.dataset.heroDir), event));
+      });
+      return card;
+    }
+
     function makeWebCard(item, slot) {
       const card = document.createElement("article");
-      card.className = `${slot === 0 ? "feature-hero" : "web-card"}${slot === selectedSlot || item.mine ? " selected" : ""}`;
+      card.className = `web-card${slot === selectedSlot || item.mine ? " selected" : ""}`;
       card.innerHTML = `
         <div class="cover web-cover${item.mine ? ' mine' : ''}" data-cover="${esc(item.cover)}">
           ${meta(item)}
         </div>
-        <div class="web-title">${esc(item.mine && userCover.title ? userCover.title : item.title)}</div>
+        <div class="web-title">${esc(displayTitle(item))}</div>
         <div class="web-meta">${esc(item.owner)} · ${esc(item.sourceName || "推荐")}</div>
       `;
       card.addEventListener("click", () => selectSlot(slot));
       card.addEventListener("dblclick", openCoverPicker);
+      card.addEventListener("dragover", event => event.preventDefault());
+      card.addEventListener("drop", event => handleDroppedCover(event, slot));
       return card;
     }
 
@@ -1123,11 +1355,13 @@
         <div class="cover mobile-cover${item.mine ? ' mine' : ''}" data-cover="${esc(item.cover)}">
           ${meta(item)}
         </div>
-        <div class="mobile-title">${esc(item.mine && userCover.title ? userCover.title : item.title)}</div>
+        <div class="mobile-title">${esc(displayTitle(item))}</div>
         <div class="mobile-meta"><span><b class="up">UP</b>${esc(item.owner)}</span><span>⋮</span></div>
       `;
       card.addEventListener("click", () => selectSlot(slot));
       card.addEventListener("dblclick", openCoverPicker);
+      card.addEventListener("dragover", event => event.preventDefault());
+      card.addEventListener("drop", event => handleDroppedCover(event, slot));
       return card;
     }
 
@@ -1136,17 +1370,17 @@
       sideGrid.innerHTML = "";
       webGrid.innerHTML = "";
       mobileGrid.innerHTML = "";
+      heroGrid.appendChild(makeHeroCarousel());
       items.forEach((item, slot) => {
-        const webCard = makeWebCard(item, slot);
-        if (slot === 0) heroGrid.appendChild(webCard);
-        else if (slot <= 6) sideGrid.appendChild(webCard);
-        else webGrid.appendChild(webCard);
+        if (slot > 0 && slot <= 6) sideGrid.appendChild(makeWebCard(item, slot));
+        else if (slot > 6) webGrid.appendChild(makeWebCard(item, slot));
         if (slot < 10) mobileGrid.appendChild(makeMobileCard(item, slot));
       });
       hint.textContent = userCover
         ? "双击任意封面位也能替换；随机封面会保留你的封面，只重排周围环境。"
         : `已内置 ${competitorCovers.length} 张其他博主封面，导入你的封面即可开始比较。`;
       prepareLazyCovers();
+      scheduleHeroTimer();
     }
 
     function setMode(mode) {
@@ -1159,11 +1393,13 @@
       showToast(desktop ? "已切到网页端" : "已切到手机端");
     }
 
-    function useFile(file) {
+    function useFile(file, slot = selectedSlot) {
       if (!file || !file.type.startsWith("image/")) {
         showToast("请选择图片文件");
         return;
       }
+      const targetSlot = Number(slot);
+      selectedSlot = Number.isFinite(targetSlot) ? targetSlot : selectedSlot;
       const reader = new FileReader();
       reader.onload = event => {
         const randomTitle = competitorCovers[Math.floor(Math.random() * competitorCovers.length)].title;
@@ -1174,6 +1410,7 @@
         };
         titleInput.value = randomTitle;
         items[selectedSlot] = { ...items[selectedSlot], ...userCover };
+        if (selectedSlot === 0) heroActiveIndex = 0;
         render();
         showToast("已导入你的封面");
       };
@@ -1193,31 +1430,18 @@
       return new Promise(resolve => canvas.toBlob(resolve, "image/png"));
     }
 
-    function cropDesktopCanvas(canvas, target) {
+    function getVisibleRect(target) {
       const rect = target.getBoundingClientRect();
-      const scaleX = canvas.width / Math.max(1, rect.width);
-      const scaleY = canvas.height / Math.max(1, rect.height);
-      const sourceX = Math.max(0, -rect.left) * scaleX;
-      const sourceY = Math.max(0, -rect.top) * scaleY;
-      const visibleWidth = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
-      const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-      const sourceWidth = Math.max(1, visibleWidth * scaleX);
-      const sourceHeight = Math.max(1, visibleHeight * scaleY);
-      const output = document.createElement("canvas");
-      output.width = Math.round(sourceWidth);
-      output.height = Math.round(sourceHeight);
-      output.getContext("2d").drawImage(
-        canvas,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        output.width,
-        output.height
-      );
-      return output;
+      const left = Math.max(0, rect.left);
+      const top = Math.max(0, rect.top);
+      const right = Math.min(window.innerWidth, rect.right);
+      const bottom = Math.min(window.innerHeight, rect.bottom);
+      return {
+        left,
+        top,
+        width: Math.max(1, right - left),
+        height: Math.max(1, bottom - top)
+      };
     }
 
     function downloadBlob(blob) {
@@ -1225,8 +1449,10 @@
       const a = document.createElement("a");
       a.href = url;
       a.download = "B站封面预览.png";
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(url);
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1200);
     }
 
     async function copyScreenshot() {
@@ -1236,18 +1462,35 @@
       const isPhone = app.classList.contains("mode-phone");
 
       try {
+        if (location.protocol === "file:") {
+          showToast("截图请双击文件夹里的“打开预览.command”后再使用");
+          return;
+        }
         const html2canvas = await ensureHtml2Canvas();
         target.classList.add("screenshot-safe");
-        const canvas = await html2canvas(target, {
+        await prepareScreenshotTarget(target);
+        const visible = getVisibleRect(target);
+        const screenshotTarget = isPhone ? target : document.body;
+        const options = {
           scale: 2,
           useCORS: true,
           allowTaint: false,
           backgroundColor: null,
           logging: false,
           imageTimeout: 8000
-        });
-        const finalCanvas = isPhone ? canvas : cropDesktopCanvas(canvas, target);
-        const blob = await canvasToBlob(finalCanvas);
+        };
+        if (!isPhone) {
+          Object.assign(options, {
+            x: visible.left + window.scrollX,
+            y: visible.top + window.scrollY,
+            width: Math.round(visible.width),
+            height: Math.round(visible.height),
+            scrollX: window.scrollX,
+            scrollY: window.scrollY
+          });
+        }
+        const canvas = await html2canvas(screenshotTarget, options);
+        const blob = await canvasToBlob(canvas);
         if (!blob) throw new Error("screenshot blob unavailable");
         if (!navigator.clipboard || !window.ClipboardItem) {
           downloadBlob(blob);
@@ -1299,16 +1542,25 @@
         render();
       }
     });
-    blurBtn.addEventListener("click", () => {
-      const on = app.classList.toggle("blur-mode");
-      blurBtn.classList.toggle("primary", on);
-      showToast(on ? "模糊测试已开启 — 看不清的标题就输了" : "模糊测试已关闭");
-    });
     markBtn.addEventListener("click", () => {
       if (!userCover) { showToast("请先导入你的封面"); return; }
       const on = app.classList.toggle("highlight-mode");
       markBtn.classList.toggle("primary", on);
       showToast(on ? "已标记你的封面 — 粉框高亮" : "已关闭封面标记");
+    });
+    sponsorBtn.addEventListener("click", () => {
+      sponsorModal.classList.add("show");
+      sponsorModal.setAttribute("aria-hidden", "false");
+    });
+    sponsorClose.addEventListener("click", () => {
+      sponsorModal.classList.remove("show");
+      sponsorModal.setAttribute("aria-hidden", "true");
+    });
+    sponsorModal.addEventListener("click", event => {
+      if (event.target === sponsorModal) sponsorClose.click();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && sponsorModal.classList.contains("show")) sponsorClose.click();
     });
     screenshotBtn.addEventListener("click", copyScreenshot);
 
@@ -1320,15 +1572,15 @@
       if (!event.relatedTarget) document.body.classList.remove("dragging");
     });
     document.addEventListener("drop", event => {
-      event.preventDefault();
-      document.body.classList.remove("dragging");
-      useFile(event.dataTransfer.files && event.dataTransfer.files[0]);
+      handleDroppedCover(event);
     });
 
     resetItems();
     render();
     app.classList.add("highlight-mode");
     markBtn.classList.add("primary");
+    const idle = window.requestIdleCallback || (callback => setTimeout(callback, 600));
+    idle(() => ensureHtml2Canvas().catch(() => {}), { timeout: 2200 });
   </script>
 </body>
 </html>
